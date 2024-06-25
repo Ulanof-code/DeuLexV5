@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  avatarUrl String?
+  name      String
+  login     String  @unique
+  password  String
+  balance   Int     @default(0)
+
+  // Relations
+  rooms     Room[]
+  userTasks UserTask[]
+}
+
+model Room {
+  id         Int     @id @default(autoincrement())
+  name       String
+  size       String // Changed from Json to String
+  characters String? // Changed from Json to String
+
+  // Relations
+  items  Item[]
+  userId Int?
+  user   User?  @relation(fields: [userId], references: [id])
+}
+
+model Item {
+  id           Int      @id @default(autoincrement())
+  name         String
+  size         String // Changed from Json to String
+  rotation     Int?
+  gridPosition String? // Changed from Json to String
+  wall         Boolean?
+  walkable     Boolean?
+
+  // Relations
+  roomId Int
+  room   Room @relation(fields: [roomId], references: [id])
+}
+
+model Shop {
+  id       Int     @id @default(autoincrement())
+  name     String
+  size     String // Changed from Json to String
+  rotation Int?
+  price    Decimal @default(0)
+}
+
+model Task {
+  id     Int     @id @default(autoincrement())
+  type   String
+  reward Decimal @default(0)
+
+  // Relations
+  taskQuestions TaskQuestion[]
+  userTasks     UserTask[]
+}
+
+model TaskQuestion {
+  id       Int    @id @default(autoincrement())
+  question String
+  answer   String
+  type     String
+
+  // Relations
+  taskId Int
+  task   Task @relation(fields: [taskId], references: [id])
+}
+
+model UserTask {
+  id          Int     @id @default(autoincrement())
+  isCompleted Boolean
+
+  // Relations
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  taskId Int
+  task   Task @relation(fields: [taskId], references: [id])
+}

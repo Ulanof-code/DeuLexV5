@@ -1,6 +1,6 @@
-import fs from 'fs'
-import pathfinding from 'pathfinding'
-import { Server } from 'socket.io'
+const fs = require('fs');
+const pathfinding = require('pathfinding')
+const { Server } = require('socket.io')
 
 const origin = process.env.CLIENT_URL || 'http://localhost:5173'
 const io = new Server({

@@ -2,7 +2,6 @@
 	{
 		"id": 1,
 		"name": "Учебная аудитория",
-		"password": "WAWA",
 		"items": [
 			{
 				"name": "loungeSofaCorner",
@@ -106,7 +105,6 @@
 	{
 		"id": 2,
 		"name": "К себе домой",
-		"password": "WAWA",
 		"items": [
 			{
 				"name": "washer",
@@ -213,7 +211,6 @@
 	{
 		"id": 3,
 		"name": "В гости к ...",
-		"password": "WAWA",
 		"items": [
 			{
 				"name": "plant",
